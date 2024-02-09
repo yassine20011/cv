@@ -1,0 +1,75 @@
+// schema.prisma
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL") // uses connection pooling
+
+}
+
+
+model User {
+    id       Int      @id @default(autoincrement())
+    email    String   @unique
+    name     String?
+    resume   Resume[]
+}
+
+model Resume {
+    id                 Int         @id @default(autoincrement())
+    subdomain          String      @unique
+    userId             Int
+    user               User        @relation(fields: [userId], references: [id])
+    name               String
+    initials           String
+    location           String
+    locationLink       String
+    about              String
+    summary            String
+    avatarUrl          String
+    personalWebsiteUrl String
+    email              String
+    tel                String
+    education          Education[]
+    work               Work[]
+    skills             String[]
+    projects           Project[]
+}
+
+model Education {
+    id       Int    @id @default(autoincrement())
+    school   String
+    degree   String
+    start    String
+    end      String
+    resume   Resume @relation(fields: [resumeId], references: [id])
+    resumeId Int
+}
+
+model Work {
+    id          Int    @id @default(autoincrement())
+    company     String
+    link        String
+    badges      String[]
+    title       String
+    start       String
+    end         String
+    description String
+    resume      Resume @relation(fields: [resumeId], references: [id])
+    resumeId    Int
+}
+
+
+model Project {
+    id          Int      @id @default(autoincrement())
+    title       String
+    techStack   String[]
+    description String
+    logo        String
+    link        String
+    resume      Resume   @relation(fields: [resumeId], references: [id])
+    resumeId    Int
+}
