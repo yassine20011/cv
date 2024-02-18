@@ -1,12 +1,13 @@
 import { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 import Header from "@/components/header";
-import { Button } from "@/components/ui/button";
 import { handleAction } from "./action";
 import Modal from "../formComponents/modal";
 import { getServerSession } from "next-auth/next";
 import Submit from "./clientSide";
-import { redirect  } from 'next/navigation'
+import { redirect } from 'next/navigation'
+import { experienceFormStructure, educationFormStructure, projectFormStructure } from "@/app/formComponents/inputs";
+
 
 export const metadata: Metadata = {
   title: "Resume Maker | Generate your own resume online",
@@ -17,7 +18,7 @@ export default async function Page() {
 
   const session = await getServerSession();
 
-  if(!session) {
+  if (!session) {
     redirect("/auth/signin");
   }
 
@@ -56,7 +57,7 @@ export default async function Page() {
       defaultValue: resume?.email ?? ""
     },
     {
-      type: "text",
+      type: "tel",
       label: "Phone",
       name: "phone",
       placeHolder: "Enter your phone number",
@@ -80,7 +81,7 @@ export default async function Page() {
       label: "location link",
       name: "locationLink",
       placeHolder: "Enter your location link (google maps)",
-      required: true,
+      required: false,
       disabled: false,
       longText: false,
       defaultValue: resume?.locationLink ?? ""
@@ -99,7 +100,7 @@ export default async function Page() {
       type: "text",
       label: "Summary",
       name: "summary",
-      placeHolder: "Enter your pincode",
+      placeHolder: "A short summary about yourself",
       required: true,
       disabled: false,
       longText: true,
@@ -133,7 +134,7 @@ export default async function Page() {
       required: false,
       disabled: false,
       longText: false,
-      defaultValue: ""
+      defaultValue: resume?.github ?? ""
     },
     {
       type: "url",
@@ -143,7 +144,7 @@ export default async function Page() {
       required: false,
       disabled: false,
       longText: false,
-      defaultValue: ""
+      defaultValue: resume?.linkedin ?? ""
     },
     {
       type: "url",
@@ -152,150 +153,18 @@ export default async function Page() {
       placeHolder: "Enter your Twitter link",
       required: false,
       disabled: false,
-      longText: false,    
-      defaultValue: ""
+      longText: false,
+      defaultValue: resume?.twitter ?? ""
     }
   ];
 
 
-  const Education = [
-    {
-      type: "text",
-      label: "Institute Name",
-      name: "instituteName",
-      placeHolder: "Enter your Institute Name",
-      required: true,
-      disabled: false,
-    },
-    {
-      type: "text",
-      label: "Degree",
-      name: "degree",
-      placeHolder: "E.g. Software Engineering",
-      required: true,
-      disabled: false,
-    },
-    {
-      type: "text",
-      label: "Start Date",
-      name: "startDate",
-      placeHolder: "E.g. 2018",
-      required: true,
-      disabled: false,
-    },
-    {
-      type: "text",
-      label: "End Date",
-      name: "endDate",
-      placeHolder: "E.g. 2022",
-      required: true,
-      disabled: false,
-    },
-  ];
-
-
-  const Experience = [
-    {
-      type: "text",
-      label: "Company Name",
-      name: "CompanyName",
-      placeHolder: "Entre your Company Name",
-      required: true,
-      disabled: false,
-    },
-    {
-      type: "text",
-      label: "Position",
-      name: "Position",
-      placeHolder: "E.g. Software Engineer",
-      required: true,
-      disabled: false,
-    }
-    ,
-    {
-      type: "url",
-      label: "Company Website",
-      name: "CompanyWebsite",
-      placeHolder: "E.g. https://www.google.com",
-      required: false,
-      disabled: false,
-    },
-    {
-      type: "text",
-      label: "Start Date",
-      name: "startDate",
-      placeHolder: "E.g. 2018/01/01",
-      required: true,
-      disabled: false,
-    },
-    {
-      type: "text",
-      label: "End Date",
-      name: "endDate",
-      placeHolder: "E.g. 2018/06/09",
-      required: true,
-      disabled: false,
-    },
-    {
-      type: "text",
-      label: "Description",
-      name: "jobDescription",
-      placeHolder: "E.g. I worked on the front end of the application...",
-      required: true,
-      disabled: false,
-      longText: true,
-    }
-  ]
-
-
-  const Project = [
-    {
-      type: "text",
-      label: "Project Name",
-      name: "ProjectName",
-      placeHolder: "Entre your Project Name",
-      required: true,
-      disabled: false,
-    },
-    {
-      type: "text",
-      label: "Description",
-      name: "projectDescription",
-      placeHolder: "E.g. A web application that allows users to...",
-      required: true,
-      disabled: false,
-      longText: true,
-    },
-    {
-      type: "text",
-      label: "Tech Stack",
-      name: "TechStack",
-      placeHolder: "E.g. React, Node, MongoDB(Comma separated)",
-      required: true,
-      disabled: false,
-    }, {
-      type: "url",
-      label: "Project Link",
-      name: "ProjectLink",
-      placeHolder: "E.g. https://www.github.com",
-      required: true,
-      disabled: false,
-    },
-    {
-      type: "url",
-      label: "logo",
-      name: "projectLogo",
-      placeHolder: "E.g. https://www.projectLogo.com",
-      required: false,
-      disabled: false,
-    },
-  ]
 
 
   return (
     <>
       <Header />
-      <section className="bg-ct-blue-600 min-h-screen">
+      <section>
         <div className="container mx-auto px-6 py-12 h-full flex justify-center items-center">
           <div className="md:w-8/12 lg:w-5/12 bg-white">
 
@@ -305,17 +174,18 @@ export default async function Page() {
               </h2>
 
               <div className="flex flex-col pt-2">
-                <Modal name="Experience" formStructure={Experience} />
-                <Modal name="Education" formStructure={Education} />
-                <Modal name="Project" formStructure={Project} />
+                <Modal buttonType="add" buttonLabel="Experience" formStructure={experienceFormStructure} />
+                <Modal buttonType="add" buttonLabel="Education" formStructure={educationFormStructure} />
+                <Modal buttonType="add" buttonLabel="Project" formStructure={projectFormStructure} />
               </div>
-
-              <form action={handleAction} className="space-y-6 pt-2">
+              <form action={handleAction} className="space-y-6 pt-6">
                 {
                   formStructure.map((form) => (
                     <div key={form.name}>
                       <label htmlFor={form.name} className="block text-sm font-medium text-gray-700 dark:text-gray-200">
-                        {form.label}
+                        {form.label} <span className="text-red-400">
+                          {form.required ? "*" : ""}
+                        </span>
                       </label>
                       {
                         form.longText ? (
