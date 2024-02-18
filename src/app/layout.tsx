@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import React from "react";
 import NextAuthProvider from '@/app/auth/NextAuthProvider';
+import { Toaster } from 'sonner'
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -27,8 +28,8 @@ export default function RootLayout({
       <NextAuthProvider>
         <html lang="en" className={inter.className}>
           <body>
-
             {children}
+            <Toaster position="bottom-left"  />
           </body>
           <Analytics />
         </html>
