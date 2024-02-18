@@ -2,6 +2,8 @@
 import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
 import { handleActionEducation, handleActionProject, handleActionExperience } from "./action";
+import { toast } from "sonner";
+
 
 type FormStructure = {
     type: string;
@@ -11,32 +13,48 @@ type FormStructure = {
     required: boolean;
     disabled: boolean;
     longText?: boolean;
+    defaultValue?: any;
 }
 
 
 interface ModalProps {
-    name: string;
+    buttonLabel: string;
+    buttonType: string;
     formStructure: FormStructure[];
+    name?: string;
 }
 
 
-export default function Modal({ name, formStructure }: ModalProps) {
+export default function Modal({ buttonLabel, buttonType, formStructure, name }: ModalProps) {
     const [showModal, setShowModal] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setShowModal(false);
         const formdata = new FormData(e.currentTarget);
-        if (name.toLowerCase() === "Education".toLowerCase()) {
-            await handleActionEducation(formdata);
+        if (buttonLabel.toLowerCase() === "Education".toLowerCase()) {
+            try {
+                await handleActionEducation(formdata);
+                toast.success("Education added successfully");
+            } catch (error) {
+                toast.error("Failed to add education");
+            }
         }
-        else if (name.toLowerCase() === "Project".toLowerCase()) {
-            await handleActionProject(formdata);
+        else if (buttonLabel.toLowerCase() === "Project".toLowerCase()) {
+            try {
+                await handleActionProject(formdata);
+                toast.success("Project added successfully");
+            } catch (error) {
+                toast.error("Failed to add project");
+            }
         }
-        else if (name.toLowerCase() === "Experience".toLowerCase()) {
-            await handleActionExperience(formdata);
-        } else {
-            throw new Error("Invalid form name");
+        else if (buttonLabel.toLowerCase() === "Experience".toLowerCase()) {
+            try {
+                await handleActionExperience(formdata);
+                toast.success("Experience added successfully");
+            } catch (error) {
+                toast.error("Failed to add experience");
+            }
         }
     }
 
@@ -46,7 +64,8 @@ export default function Modal({ name, formStructure }: ModalProps) {
                 className="w-full mt-4"
                 onClick={() => setShowModal(true)}
             >
-                Add {name}
+                {buttonType.toLowerCase() === "edit" ? name : buttonType.charAt(0).toUpperCase() + buttonType.slice(1) + " " + buttonLabel}
+            
             </Button>
 
 
@@ -60,7 +79,7 @@ export default function Modal({ name, formStructure }: ModalProps) {
                                 {/*header*/}
                                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                                     <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                                        Add your {name.toLowerCase()} details
+                                        {buttonType.charAt(0).toUpperCase() + buttonType.slice(1)} {buttonLabel}
                                     </h3>
                                     <button
                                         type="button"
@@ -89,11 +108,13 @@ export default function Modal({ name, formStructure }: ModalProps) {
                                     <form className="space-y-4" onSubmit={handleSubmit}>
                                         {
                                             formStructure.map((form) => (
-                                                
+
                                                 form.longText ? (
                                                     <div key={form.name}>
                                                         <label htmlFor={form.name} className="block text-sm font-medium text-gray-700 dark:text-gray-200">
-                                                            {form.label}
+                                                            {form.label}  <span className="text-red-400">
+                                                                {form.required ? "*" : ""}
+                                                            </span>
                                                         </label>
                                                         <textarea
                                                             id={form.name}
@@ -103,27 +124,31 @@ export default function Modal({ name, formStructure }: ModalProps) {
                                                             placeholder={form.placeHolder}
                                                             required={form.required}
                                                             disabled={form.disabled}
+                                                            defaultValue={form.defaultValue}
                                                         />
                                                     </div>
                                                 ) : (
-                                                
 
-                                                <div key={form.name}>
-                                                    <label htmlFor={form.name} className="block text-sm font-medium text-gray-700 dark:text-gray-200">
-                                                        {form.label}
-                                                    </label>
 
-                                                    <input
-                                                        id={form.name}
-                                                        name={form.name}
-                                                        type={form.type}
-                                                        autoComplete="text"
-                                                        className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                        placeholder={form.placeHolder}
-                                                        required={form.required}
-                                                        disabled={form.disabled}
-                                                    />
-                                                </div>
+                                                    <div key={form.name}>
+                                                        <label htmlFor={form.name} className="block text-sm font-medium text-gray-700 dark:text-gray-200">
+                                                            {form.label}  <span className="text-red-400">
+                                                                {form.required ? "*" : ""}
+                                                            </span>
+                                                        </label>
+
+                                                        <input
+                                                            id={form.name}
+                                                            name={form.name}
+                                                            type={form.type}
+                                                            autoComplete="text"
+                                                            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            placeholder={form.placeHolder}
+                                                            required={form.required}
+                                                            disabled={form.disabled}
+                                                            defaultValue={form.defaultValue}
+                                                        />
+                                                    </div>
                                                 )
                                             ))
                                         }
@@ -131,7 +156,7 @@ export default function Modal({ name, formStructure }: ModalProps) {
                                             type="submit"
                                             className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full mt-4"
                                         >
-                                            Add
+                                           {buttonType.toLowerCase() === "edit" ? "Update" : "Add"}
                                         </button>
                                     </form>
                                 </div>
