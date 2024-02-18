@@ -13,7 +13,7 @@ export const LoginForm = () => {
 
 
     const searchParams = useSearchParams();
-    const callbackUrl = searchParams.get("callbackUrl") || "/demo";
+    const callbackUrl = searchParams.get("callbackUrl") || "/personal-details";
 
     return (
         <>
