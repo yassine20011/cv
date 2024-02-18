@@ -7,7 +7,6 @@ generator client {
 datasource db {
   provider = "postgresql"
   url = env("DATABASE_URL") // uses connection pooling
-
 }
 
 
@@ -16,6 +15,7 @@ model User {
     email    String   @unique
     name     String?
     resume   Resume[]
+    createdAt DateTime @default(now())
 }
 
 model Resume {
@@ -33,6 +33,9 @@ model Resume {
     personalWebsiteUrl String
     email              String
     tel                String
+    linkedin           String
+    github             String
+    twitter            String
     education          Education[]
     work               Work[]
     skills             String[]
@@ -41,23 +44,23 @@ model Resume {
 
 model Education {
     id       Int    @id @default(autoincrement())
-    school   String
+    instituteName   String
     degree   String
-    start    String
-    end      String
+    startDate    DateTime 
+    endDate      DateTime
     resume   Resume @relation(fields: [resumeId], references: [id])
     resumeId Int
 }
 
 model Work {
     id          Int    @id @default(autoincrement())
-    company     String
-    link        String
+    companyName     String
+    companyWebsite  String
     badges      String[]
-    title       String
-    start       String
-    end         String
-    description String
+    position       String
+    startDate       DateTime
+    endDate         DateTime
+    jobDescription String
     resume      Resume @relation(fields: [resumeId], references: [id])
     resumeId    Int
 }
@@ -65,11 +68,10 @@ model Work {
 
 model Project {
     id          Int      @id @default(autoincrement())
-    title       String
+    projectName       String
     techStack   String[]
-    description String
-    logo        String
-    link        String
+    projectDescription String
+    url        String
     resume      Resume   @relation(fields: [resumeId], references: [id])
     resumeId    Int
 }
