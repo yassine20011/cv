@@ -41,22 +41,23 @@ export const options: NextAuthOptions = {
           },
         });
 
-        // initialize resume
-
         await prisma.resume.create({
           data: {
             userId: user.id,
             subdomain: profile.name?.split(" ").join("-").toLowerCase() ?? "",
             name: profile.name ?? "",
+            initials: profile.name?.split(" ").map((n) => n[0]).join("") ?? "",
             tel: "",
             location: "",
             locationLink: "",
             about: "",
-            initials: "",
             summary: "",
             avatarUrl: profile.image ?? "",
             personalWebsiteUrl: "",
             email: email,
+            linkedin: "",
+            github: "",
+            twitter: "",
             skills: [],
           }
         });
