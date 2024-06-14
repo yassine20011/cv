@@ -24,7 +24,6 @@ async function Page() {
 
         const Usertabs = [
             { name: 'Personal Details', href: '/personal-details' },
-            { name: 'Profile Manager', href: '/profile-manager' },
             { name: 'Preview', href: `/preview/${resume?.subdomain}` },
             { name: 'Demo', href: '/demo' },
         ]
