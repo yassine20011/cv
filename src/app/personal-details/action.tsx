@@ -3,6 +3,8 @@
 import { getServerSession } from "next-auth/next"
 import { prisma } from "@/lib/prisma"
 import { options } from "../api/auth/[...nextauth]/options"
+import cloudinary from "@/lib/cloudinary";
+import fs from 'fs';
 
 export const handleAction = async (formdata: FormData) => {
 
@@ -21,8 +23,38 @@ export const handleAction = async (formdata: FormData) => {
     const skills = formdata.get("skills") as string;
     const name = formdata.get("name") as string;
 
-    try {
+    // uploading avatar to cloudinary
+    const avatar = formdata.get("avatar") as File;
+    if (avatar.size != 0) {
 
+        const fileBuffer = Buffer.from(await avatar.arrayBuffer());
+        const fileName = avatar.name;
+        const tempPath = `/tmp/${fileName}`;
+        fs.writeFileSync(tempPath, fileBuffer);
+        try {
+            const uploadResult = await cloudinary.uploader.upload(tempPath, {
+                public_id: name
+            })
+            await prisma.resume.update({
+                where: {
+                    id: user.id
+                },
+                data: {
+                    avatarUrl: uploadResult.secure_url
+                }
+            })
+        }
+        catch (error) {
+            if (error instanceof Error) {
+                throw new Error(error.message);
+            } else {
+                throw new Error("An unknown error occurred");
+            }
+        }
+        fs.unlinkSync(tempPath);
+    }
+
+    try {
         await prisma.resume.update({
             where: {
                 id: user.id
@@ -45,7 +77,6 @@ export const handleAction = async (formdata: FormData) => {
             }
         })
     } catch (error) {
-        console.error(error)
-        throw new Error("Error updating resume")
+        console.log(error)
     }
 }
