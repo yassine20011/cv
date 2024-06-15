@@ -4,7 +4,8 @@ import Header from "@/components/header";
 import { handleAction } from "./action";
 import Modal from "../formComponents/modal";
 import { getServerSession } from "next-auth/next";
-import Submit from "./clientSide";
+import Submit from "./submit";
+import FileDropzone from './upload';
 import { redirect } from 'next/navigation'
 import { experienceFormStructure, educationFormStructure, projectFormStructure } from "@/app/formComponents/inputs";
 
@@ -179,6 +180,7 @@ export default async function Page() {
                 <Modal buttonType="add" buttonLabel="Project" formStructure={projectFormStructure} />
               </div>
               <form action={handleAction} className="space-y-6 pt-6">
+                <FileDropzone />
                 {
                   formStructure.map((form) => (
                     <div key={form.name}>

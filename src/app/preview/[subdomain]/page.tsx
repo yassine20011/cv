@@ -13,7 +13,7 @@ import { ProjectCard } from "@/components/project-card";
 import { GitHubIcon, LinkedInIcon, XIcon } from "@/components/icons";
 import Link from 'next/link';
 import type { Metadata } from 'next'
-
+import { CldImage } from 'next-cloudinary';
 
 
 type Props = {
@@ -242,7 +242,7 @@ export default async function Page({ params }: { params: { subdomain: string } }
                         </div>
                     </div>
 
-                    <Avatar className="h-28 w-28">
+                    <Avatar className="h-28 w-28 border-2 border-grey-400">
                         <AvatarImage alt={RESUME_DATA.name} src={RESUME_DATA.avatarUrl} />
                         <AvatarFallback>{RESUME_DATA.initials}</AvatarFallback>
                     </Avatar>
