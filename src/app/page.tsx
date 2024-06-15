@@ -26,7 +26,7 @@ async function Pgae() {
                         <span className="block text-indigo-600">With a Personal Subdomain</span>
                     </h1>
                     <p className="mt-6 max-w-md mx-auto text-lg text-gray-600 sm:text-lg md:mt-8 md:text-xl md:max-w-2xl">
-                        Easily create a professional online CV with a personal subdomain (yourname.cv.live) and print-friendly layout.
+                        Easily create a professional online CV with a personal subdomain (yourname.cvhub.live) and print-friendly layout.
                     </p>
                     <div className="mt-8">
                         <Button>
