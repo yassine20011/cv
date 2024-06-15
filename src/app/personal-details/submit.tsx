@@ -1,25 +1,24 @@
 "use client"
-import { useFormStatus} from 'react-dom'
+import { useFormStatus } from 'react-dom'
 import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
-
+import { CldImage } from 'next-cloudinary';
 
 function Submit() {
 
     const { pending } = useFormStatus()
 
     useEffect(() => {
-        if(pending) {
+        if (pending) {
             toast.success("Resume updated successfully")
         }
     }, [pending])
-    
 
 
     return (<>
         <Button type="submit" className="w-full mt-4" variant="outline"
-            disabled={pending} 
+            disabled={pending}
         > Update </Button>
 
     </>);
