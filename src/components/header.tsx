@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { getServerSession } from 'next-auth'
 import { prisma } from "@/lib/prisma"
 import { Nav } from './headerComponents'
@@ -7,7 +6,7 @@ import { Nav } from './headerComponents'
 async function Page() {
 
     const session = await getServerSession();
-    
+
     if (session) {
 
         const user = await prisma.user.findUnique({
@@ -24,6 +23,7 @@ async function Page() {
 
         const Usertabs = [
             { name: 'Personal Details', href: '/personal-details' },
+            { name: 'Manage Content', href: "/manage-content" },
             { name: 'Preview', href: `/preview/${resume?.subdomain}` },
             { name: 'Demo', href: '/demo' },
         ]
@@ -38,7 +38,7 @@ async function Page() {
 
         const AnonymousUserTabs = [
             { name: 'Home', href: '/' },
-            { name: 'Demo', href: '/demo'}
+            { name: 'Demo', href: '/demo' }
         ]
 
         return (
