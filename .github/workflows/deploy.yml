@@ -22,13 +22,13 @@ jobs:
         run: npm ci
 
       - name: Migrate database
-        env:
-          DATABASE_URL: ${{ env.DATABASE_URL }}
+        secrets:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: npx prisma migrate deploy
 
       - name: Deploy to Vercel
         run: npx vercel --prod
-        env:
+        secrets:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
