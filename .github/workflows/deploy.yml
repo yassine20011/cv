@@ -22,9 +22,9 @@ jobs:
         run: npm ci
 
       - name: Migrate database
-        run: npx prisma migrate deploy
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_URL: ${{ env.DATABASE_URL }}
+        run: npx prisma migrate deploy
 
       - name: Deploy to Vercel
         run: npx vercel --prod
