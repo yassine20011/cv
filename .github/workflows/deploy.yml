@@ -27,21 +27,12 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: npx prisma migrate deploy
 
-  deploy_preview:
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Deploy to Vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: npx vercel --prebuilt
-        
-  deploy_production:
-    runs-on: ubuntu-latest
-    
-    steps: 
+
       - name: Deploy to Vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: npx vercel --prod
-  
