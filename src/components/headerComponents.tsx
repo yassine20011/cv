@@ -6,8 +6,9 @@ import { useSession } from "next-auth/react"
 import { usePathname } from "next/navigation";
 import logo from "../../public/resume.png"
 import Image from 'next/image'
+import { useState } from "react";
 
-export default function CheckSession() {
+function CheckSessionDesktop() {
     const { data: session } = useSession()
 
     if (session) {
@@ -18,7 +19,10 @@ export default function CheckSession() {
                     className="text-sm font-semibold leading-6 text-gray-900"
                     onClick={() => signOut()}
                 >
-                    Log out <span aria-hidden="true">→</span>
+                    Log out
+                    <span aria-hidden="true" className="text-xl">
+                        →
+                    </span>
                 </button>
             </div>
         )
@@ -27,9 +31,46 @@ export default function CheckSession() {
         return (
             <div className="hidden lg:flex lg:flex-1 lg:justify-end">
                 <Link href="/auth/signin" className="text-sm font-semibold leading-6 text-gray-900">
-                    Log in <span aria-hidden="true">→</span>
+                    Log in
+                    <span aria-hidden="true" className="text-xl">
+                        →
+                    </span>
                 </Link>
             </div>
+        )
+    }
+}
+
+
+function CheckSessionMobile() {
+    const { data: session } = useSession()
+
+    if (session) {
+        return (
+            <li>
+                <button
+                    type="button"
+                    className="text-sm font-semibold leading-6 text-gray-900 py-2 px-3"
+                    onClick={() => signOut()}
+                >
+                    Log out
+                    <span aria-hidden="true" className="text-xl">
+                        →
+                    </span>
+                </button>
+            </li>
+        )
+    }
+    else {
+        return (
+            <li>
+                <Link href="/auth/signin" className="text-sm font-semibold leading-6 text-gray-900 py-2 px-3">
+                    Log in
+                    <span aria-hidden="true" className="text-xl">
+                        →
+                    </span>
+                </Link>
+            </li>
         )
     }
 }
@@ -38,6 +79,7 @@ export default function CheckSession() {
 export function Nav({ tabs }: { tabs: { name: string, href: string }[] }) {
 
     const pathname = usePathname()
+    const [toggle, setToggle] = useState(false);
 
     return (
         <nav
@@ -58,6 +100,7 @@ export function Nav({ tabs }: { tabs: { name: string, href: string }[] }) {
                 <button
                     type="button"
                     className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+                    onClick={() => setToggle(!toggle)}
                 >
                     <span className="sr-only">Open main menu</span>
                     <svg
@@ -76,39 +119,46 @@ export function Nav({ tabs }: { tabs: { name: string, href: string }[] }) {
                     </svg>
                 </button>
             </div>
+            {/*  toggle menu */}
+            <div className={`${toggle ? 'block' : 'hidden'} lg:hidden absolute top-20 right-0 z-10 bg-white w-48 mr-4 p-2 border-2 border-gray-200 rounded-lg`}>
+                <ul className="flex flex-col font-medium mt-4 rounded-lg">
+                    {
+                        tabs.map((tab) => (
+                            <li key={tab.name}>
+                                <a
+                                    href={tab.href}
+                                    className={`
+                                                ${tab.href === pathname ? 'bg-indigo-50 text-indigo-700' : 'text-gray-900 hover:bg-gray-50 hover:text-gray-900'}
+                                                block rounded-md py-2 px-3 text-base font-medium
+                                            `}
+                                    aria-current={tab.href === pathname ? 'page' : undefined}
+                                >
+                                    {tab.name}
+                                </a>
+                            </li>
+                        ))
+                    }
+                    <CheckSessionMobile />
+                </ul>
+            </div>
+            {/* desktop menu */}
             <div className="hidden lg:flex lg:gap-x-12">
                 <div className="relative">
-
                 </div>
                 {
                     tabs.map((tab) => (
-                        tab.name === "profile-manager" ? (
-                            <a href={tab.href} key={tab.name}
-                                className={`
+                        <a href={tab.href} key={tab.name}
+                            className={`
                                 ${tab.href === pathname ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'}
                                 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium
                         `} aria-current={tab.href === pathname ? 'page' : undefined}
-                            >
-                                {tab.name}
-                            </a>
-                        ) : (
-                            <Link href={tab.href
-                            } key={tab.name} prefetch={true}
-                                className={`
-                                ${tab.href === pathname ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'}
-                                inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium
-                        `}
-
-                                aria-current={tab.href === pathname ? 'page' : undefined}
-                            >
-                                {tab.name}
-                            </Link>
-                        )
-
+                        >
+                            {tab.name}
+                        </a>
                     ))
                 }
             </div>
-            <CheckSession />
+            <CheckSessionDesktop />
         </nav>
 
     )
