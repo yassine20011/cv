@@ -5,15 +5,16 @@ generator client {
 }
 
 datasource db {
-    provider = "postgresql"
-    url = env("DATABASE_URL") // uses connection pooling
+    provider  = "postgresql"
+    url       = env("DATABASE_URL") // uses connection pooling
+    directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 model User {
-    id       Int      @id @default(autoincrement())
-    email    String   @unique
-    name     String?
-    resume   Resume[]
+    id        Int      @id @default(autoincrement())
+    email     String   @unique
+    name      String?
+    resume    Resume[]
     createdAt DateTime @default(now())
 }
 
@@ -42,35 +43,34 @@ model Resume {
 }
 
 model Education {
-    id       Int    @id @default(autoincrement())
-    instituteName   String
-    degree   String
-    startDate    DateTime 
-    endDate      DateTime
-    resume   Resume @relation(fields: [resumeId], references: [id])
-    resumeId Int
+    id            Int      @id @default(autoincrement())
+    instituteName String
+    degree        String
+    startDate     DateTime
+    endDate       DateTime
+    resume        Resume   @relation(fields: [resumeId], references: [id])
+    resumeId      Int
 }
 
 model Work {
-    id          Int    @id @default(autoincrement())
-    companyName     String
-    companyWebsite  String
-    badges      String[]
+    id             Int      @id @default(autoincrement())
+    companyName    String
+    companyWebsite String
+    badges         String[]
     position       String
-    startDate       DateTime
-    endDate         DateTime
+    startDate      DateTime
+    endDate        DateTime
     jobDescription String
-    resume      Resume @relation(fields: [resumeId], references: [id])
-    resumeId    Int
+    resume         Resume   @relation(fields: [resumeId], references: [id])
+    resumeId       Int
 }
 
-
 model Project {
-    id          Int      @id @default(autoincrement())
-    projectName       String
-    techStack   String[]
+    id                 Int      @id @default(autoincrement())
+    projectName        String
+    techStack          String[]
     projectDescription String
-    url        String
-    resume      Resume   @relation(fields: [resumeId], references: [id])
-    resumeId    Int
+    url                String
+    resume             Resume   @relation(fields: [resumeId], references: [id])
+    resumeId           Int
 }
