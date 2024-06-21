@@ -18,7 +18,7 @@ async function Pgae() {
 
     return (<>
         <Header />
-        <main className="relative h-[calc(100vh_-_48px)] overflow-y-auto w-full">
+        <main className="relative h-[calc(100vh_-_48px)] w-full">
             <div className="container mx-auto px-4 py-12 sm:py-16 lg:py-24">
                 <div className="text-center">
                     <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
