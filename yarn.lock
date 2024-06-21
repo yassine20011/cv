@@ -196,10 +196,10 @@
   resolved "https://registry.npmjs.org/@panva/hkdf/-/hkdf-1.1.1.tgz"
   integrity sha512-dhPeilub1NuIG0X5Kvhh9lH4iW3ZsHlnzwgwbOlgwQ2wG1IqFzsgHqmKPk3WzsdWAeaxKJxgM0+W433RmN45GA==
 
-"@prisma/client@^5.8.1":
-  version "5.8.1"
-  resolved "https://registry.npmjs.org/@prisma/client/-/client-5.8.1.tgz"
-  integrity sha512-xQtMPfbIwLlbm0VVIVQY2yqQVOxPwRQhvIp7Z3m2900g1bu/zRHKhYZJQWELqmjl6d8YwBy0K2NvMqh47v1ubw==
+"@prisma/client@^5.15.1":
+  version "5.15.1"
+  resolved "https://registry.npmjs.org/@prisma/client/-/client-5.15.1.tgz"
+  integrity sha512-fmZRGmsUJ9+VwC/AvfP/PwdpD0xAEyPvNsD9/B3+GYpETq9VejVRT3PiqNvl76q1uYYzNZeo8u/LmzzTetHSEg==
 
 "@prisma/debug@5.8.1":
   version "5.8.1"
