@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth";
 import { redirect } from 'next/navigation'
 import DeleteEducation from "./deleteEducation";
 import DeleteWork from "./deleteWork"
+import DeleteProject from "./deleteProject";
 
 export default async function page() {
 
@@ -44,12 +45,15 @@ export default async function page() {
 	return (
 		<>
 			<Header />
-			<div className="max-w-4xl mx-auto bg-white p-6 rounded-lg border-2 ">
+			<div className="max-w-4xl mx-auto bg-white p-6">
 				<h2 className="text-2xl font-bold mb-4">Manage Education</h2>
 				<DeleteEducation education={education} />
 				<br />
 				<h2 className="text-2xl font-bold mb-4">Manage Work</h2>
 				<DeleteWork work={work} />
+				<br />
+				<h2 className="text-2xl font-bold mb-4">Manage Projects</h2>
+				<DeleteProject project={projects} />
 			</div>
 		</>
 	);
