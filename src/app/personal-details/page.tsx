@@ -8,7 +8,7 @@ import Submit from "./submit";
 import FileDropzone from './upload';
 import { redirect } from 'next/navigation'
 import { experienceFormStructure, educationFormStructure, projectFormStructure } from "@/app/formComponents/inputs";
-
+import SubDomainButton from "./subdomainBtn";
 
 export const metadata: Metadata = {
   title: "Resume Maker | Generate your own resume online",
@@ -161,7 +161,6 @@ export default async function Page() {
 
 
 
-
   return (
     <>
       <Header />
@@ -173,11 +172,12 @@ export default async function Page() {
               <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
                 Fill the form to generate your resume
               </h2>
-
               <div className="flex flex-col pt-2">
                 <Modal buttonType="add" buttonLabel="Experience" formStructure={experienceFormStructure} />
                 <Modal buttonType="add" buttonLabel="Education" formStructure={educationFormStructure} />
                 <Modal buttonType="add" buttonLabel="Project" formStructure={projectFormStructure} />
+                <SubDomainButton subdomain={resume?.subdomain} />
+
               </div>
               <form action={handleAction} className="space-y-6 pt-6">
                 <FileDropzone />
