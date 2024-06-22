@@ -67,7 +67,7 @@ function DeleteProject({ project }: Props) {
                             <div key={`item-${item.id}`} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg shadow-sm border-2 border-gray-300 border-dashed">
                                 <div>
                                     <h3 className="text-lg font-semibold">{item.projectName}</h3>
-                                    <p className="text-gray-600">{`${item.projectDescription}`}</p>
+                                    <p className="text-gray-600">{item.projectDescription.length > 100 ? `${item.projectDescription.substring(0, 100)}...` : item.projectDescription}</p>
                                 </div>
                                 <div className="flex space-x-2">
                                     <Button
