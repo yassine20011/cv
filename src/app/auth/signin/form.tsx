@@ -6,29 +6,21 @@ import { ChangeEvent, useState } from "react";
 
 export const LoginForm = () => {
 
-    const router = useRouter();
-    const [loading, setLoading] = useState(false);
-
-    
-
-
     const searchParams = useSearchParams();
     const callbackUrl = searchParams.get("callbackUrl") || "/personal-details";
 
     return (
         <>
-    
+
             <h1 className="text-center text-2xl font-bold mb-4">Sign in to your account</h1>
 
-            <div className="flex flex-center justify-center gap-x-2 mb-4">
+            <div className="flex flex-col space-y-4">
                 <button
                     type="button"
-                    className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 me-2 mb-2"
+                    className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2"
                     onClick={() => {
-                        setLoading(true);
                         signIn("google", { callbackUrl });
-                    }
-                    }
+                    }}
                 >
                     <svg
                         className="w-4 h-4 me-2"
@@ -48,9 +40,8 @@ export const LoginForm = () => {
                 </button>
                 <button
                     type="button"
-                    className="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 me-2 mb-2"
+                    className="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2"
                     onClick={() => {
-                        setLoading(true);
                         signIn("github", { callbackUrl });
                     }
                     }
