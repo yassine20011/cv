@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 
 
 export async function DELETE(
+    request: Request,
     { params }: { params: { id: number } }
 ) {
 
