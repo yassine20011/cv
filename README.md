@@ -100,10 +100,10 @@ If you have Docker installed, you can use the `docker-compose.yaml` to create a 
 - [x] Setup GitHub Actions
 - [x] Add wildcard subdomain
 - [x] Add personal details page
-- [x] Add buttons to add Experience, Education, and Projects
+- [x] Add buttons to add Experience, Education, and Projects on personal details page
 - [x] Add manage content page
-- [x] Add/remove Experience, Education, and Projects on manage content page
-- [ ] Add edit Experience, Education, and Projects on manage content page
+- [x] Add/remove buttons Experience, Education, and Projects on manage content page
+- [ ] Add edit buttons Experience, Education, and Projects on manage content page
 - [x] Add preview page
 - [x] Add download as PDF button (already exists)
 - [ ] Add more themes
