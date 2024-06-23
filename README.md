@@ -107,6 +107,7 @@ If you have Docker installed, you can use the `docker-compose.yaml` to create a 
 - [x] Add preview page
 - [x] Add download as PDF button (already exists)
 - [ ] Add more themes
+- [ ] Add unit tests
 
 ## Contributing
 
