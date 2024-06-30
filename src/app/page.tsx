@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import Header from '@/components/header'
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation'
@@ -6,8 +6,7 @@ import demoImg from "../../public/demo.png"
 import Image from 'next/image';
 import { Button } from "@/components/ui/button";
 
-
-async function Pgae() {
+async function Home() {
 
     const session = await getServerSession();
 
@@ -16,7 +15,7 @@ async function Pgae() {
     }
 
 
-    return (<>
+    return (<Fragment>
         <Header />
         <main className="relative h-[calc(100vh_-_48px)] w-full">
             <div className="container mx-auto px-4 py-12 sm:py-16 lg:py-24">
@@ -67,8 +66,8 @@ async function Pgae() {
                 </div>
             </div>
         </main>
-    </>);
+    </Fragment>);
 }
 
-export default Pgae;
+export default Home;
 
