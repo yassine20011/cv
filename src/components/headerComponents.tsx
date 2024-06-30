@@ -49,6 +49,7 @@ function CheckSessionMobile() {
         return (
             <li>
                 <button
+                    data-testid="mobile-logout"
                     type="button"
                     className="text-sm font-semibold leading-6 text-gray-900 py-2 px-3"
                     onClick={() => signOut()}
@@ -64,7 +65,9 @@ function CheckSessionMobile() {
     else {
         return (
             <li>
-                <Link href="/auth/signin" className="text-sm font-semibold leading-6 text-gray-900 py-2 px-3">
+                <Link href="/auth/signin" className="text-sm font-semibold leading-6 text-gray-900 py-2 px-3"
+                    data-testid="mobile-login"
+                >
                     Log in
                     <span aria-hidden="true" className="text-xl">
                         →
@@ -89,9 +92,9 @@ export function Nav({ tabs }: { tabs: { name: string, href: string }[] }) {
             <div className="flex lg:flex-1">
                 <Link href="/" className="-m-1.5 p-1.5">
                     <Image
-                        className="h-8 w-auto"
                         src={logo}
-                        alt="logo"
+                        className="h-8 w-auto"
+                        alt="Resume Builder"
                     />
                     <span className="font-bold">Resume Builder</span>
                 </Link>
@@ -151,7 +154,7 @@ export function Nav({ tabs }: { tabs: { name: string, href: string }[] }) {
                             className={`
                                 ${tab.href === pathname ? 'border-indigo-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'}
                                 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium
-                        `} aria-current={tab.href === pathname ? 'page' : undefined}
+                        `} aria-current={tab.href === pathname ? 'page' : undefined} data-testid={tab.name}
                         >
                             {tab.name}
                         </a>

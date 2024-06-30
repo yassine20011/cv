@@ -1,6 +1,6 @@
-import { getServerSession } from 'next-auth'
-import { prisma } from "@/lib/prisma"
-import { Nav } from './headerComponents'
+import { getServerSession } from 'next-auth';
+import { prisma } from "@/lib/prisma";
+import { Nav } from './headerComponents';
 
 
 async function Page() {
