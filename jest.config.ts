@@ -14,6 +14,7 @@ const config: Config.InitialOptions = {
     'node_modules/(?!(next-auth|uuid)/)',
   ],
   moduleNameMapper: {
+    '^@/app/(.*)$': '<rootDir>/src/app/$1',
     '^@/components/(.*)$': '<rootDir>/src/components/$1',
     '^@/lib/(.*)$': '<rootDir>/src/lib/$1',
     '^@/public/(.*)$': '<rootDir>/public/$1',
