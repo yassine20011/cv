@@ -2,13 +2,14 @@ import { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 import Header from "@/components/header";
 import { handleAction } from "./action";
-import Modal from "../formComponents/modal";
+import Modal from "@/app/formComponents/modal";
 import { getServerSession } from "next-auth/next";
 import Submit from "./submit";
 import FileDropzone from './upload';
 import { redirect } from 'next/navigation'
 import { experienceFormStructure, educationFormStructure, projectFormStructure } from "@/app/formComponents/inputs";
 import SubDomainButton from "./subdomainBtn";
+import { handleActionEducation, handleActionProject, handleActionExperience } from "@/app/formComponents/action";
 
 export const metadata: Metadata = {
   title: "Resume Maker | Generate your own resume online",
@@ -173,9 +174,9 @@ export default async function Page() {
                 Fill the form to generate your resume
               </h2>
               <div className="flex flex-col pt-2">
-                <Modal buttonType="add" buttonLabel="Experience" formStructure={experienceFormStructure} />
-                <Modal buttonType="add" buttonLabel="Education" formStructure={educationFormStructure} />
-                <Modal buttonType="add" buttonLabel="Project" formStructure={projectFormStructure} />
+                <Modal buttonType="add" buttonLabel="Experience" formStructure={experienceFormStructure} action={handleActionExperience} />
+                <Modal buttonType="add" buttonLabel="Education" formStructure={educationFormStructure} action={handleActionEducation} />
+                <Modal buttonType="add" buttonLabel="Project" formStructure={projectFormStructure} action={handleActionProject} />
                 <SubDomainButton subdomain={resume?.subdomain} />
 
               </div>
