@@ -5,6 +5,7 @@ This project is a fork of [cv](https://github.com/BartoszJarocki/cv.git), origin
 I have converted the project to be more user-friendly and added several features. This project aims to provide a minimalist CV that is easy to set up and use, even for non-developers.
 
 ## Table of Contents
+
 - [Features](#features)
 - [Tech Stack](#tech-stack)
 - [Installation](#installation)
@@ -15,13 +16,15 @@ I have converted the project to be more user-friendly and added several features
 
 ## Features
 
-- Authenticated users can create their own CV (using next-auth)
-- Fully responsive (works on all devices)
+- Authenticated users can create their own CV
+- Fully responsive design
 - Three pages: Personal Details, Manage Content, and Preview
-- Easy to use and set up
+  - Personal Details: Users can add their personal details, experience, education, and projects.
+  - Manage Content: Users can add or remove experience, education, and projects.
+  - Preview: Users can preview their CV.
+  - preview can be accessed via a wildcard subdomain (e.g., `yourname.cvhub.live`)
 - Wildcard subdomain for each user
 - Users can download their CV as a PDF
-- Clean User Interface
 
 ## Tech Stack
 
@@ -42,47 +45,47 @@ To install the project, follow these steps:
 
 1. Clone the project:
 
-    ```bash
-    git clone <project-url>
-    ```
+   ```bash
+   git clone <project-url>
+   ```
 
 2. Install the dependencies:
 
-    ```bash
-    npm install
-    ```
+   ```bash
+   npm install
+   ```
 
 3. Create a `.env.local` file in the root directory and add the following environment variables:
 
-    ```env
-    DATABASE_URL=postgres://username:password@host:port/dbname
+   ```env
+   DATABASE_URL=postgres://username:password@host:port/dbname
 
-    # Cloudinary credentials
-    CLOUDINARY_CLOUD_NAME=<cloudinary_cloud_name>
-    CLOUDINARY_API_KEY=<cloudinary_api_key>
-    CLOUDINARY_API_SECRET=<cloudinary_api_secret>
+   # Cloudinary credentials
+   CLOUDINARY_CLOUD_NAME=<cloudinary_cloud_name>
+   CLOUDINARY_API_KEY=<cloudinary_api_key>
+   CLOUDINARY_API_SECRET=<cloudinary_api_secret>
 
-    # Auth credentials
-    NEXTAUTH_SECRET=<nextauth_secret>
-    GOOGLE_CLIENT_ID=<google_client_id>
-    GOOGLE_CLIENT_SECRET=<google_client_secret>
-    GITHUB_CLIENT_ID=<github_client_id>
-    GITHUB_CLIENT_SECRET=<github_client_secret>
-    NEXTAUTH_URL=http://localhost:3000
-    NODE_ENV=development
-    ```
+   # Auth credentials
+   NEXTAUTH_SECRET=<nextauth_secret>
+   GOOGLE_CLIENT_ID=<google_client_id>
+   GOOGLE_CLIENT_SECRET=<google_client_secret>
+   GITHUB_CLIENT_ID=<github_client_id>
+   GITHUB_CLIENT_SECRET=<github_client_secret>
+   NEXTAUTH_URL=http://localhost:3000
+   NODE_ENV=development
+   ```
 
 4. Run the migrations:
 
-    ```bash
-    npx prisma migrate dev
-    ```
+   ```bash
+   npx prisma migrate dev
+   ```
 
 5. Run the project:
 
-    ```bash
-    npm run dev
-    ```
+   ```bash
+   npm run dev
+   ```
 
 If you have Docker installed, you can use the `docker-compose.yaml` to create a PostgreSQL database:
 
