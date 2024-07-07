@@ -16,7 +16,7 @@ I have converted the project to be more user-friendly and added several features
 
 ## Features
 
-- Authenticated users can create their own CV
+- Authenticated users using OAuth (Google and GitHub)
 - Fully responsive design
 - Three pages: Personal Details, Manage Content, and Preview
   - Personal Details: Users can add their personal details, experience, education, and projects.
